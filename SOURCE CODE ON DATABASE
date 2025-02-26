@@ -1,0 +1,67 @@
+-- Create the REGISTRATION table
+CREATE TABLE REGISTRATION (
+    RegistrationID INT AUTO_INCREMENT PRIMARY KEY,
+    Date DATE,
+    MemberID INT,
+    Notes TEXT,
+    FOREIGN KEY (MemberID) REFERENCES MEMBER(MemberID)
+);
+
+-- Create the ADMIN table
+CREATE TABLE ADMIN (
+    AdminID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100),
+    ContactNo VARCHAR(15)
+);
+
+-- Create the MEMBER table
+CREATE TABLE MEMBER (
+    MemberID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100),
+    ContactNo VARCHAR(15),
+    Age INT,
+    Gender VARCHAR(10),
+    EmergencyContact VARCHAR(15),
+    SubscriptionID INT,
+    FOREIGN KEY (SubscriptionID) REFERENCES SUBSCRIPTION(SubscriptionID)
+);
+
+-- Create the INSTRUCTOR table
+CREATE TABLE INSTRUCTOR (
+    InstructorID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100),
+    ContactNo VARCHAR(15),
+    Specialization VARCHAR(100),
+    Availability TEXT
+);
+
+-- Create the SUBSCRIPTION table
+CREATE TABLE SUBSCRIPTION (
+    SubscriptionID INT AUTO_INCREMENT PRIMARY KEY,
+    PlanType VARCHAR(50),
+    StartDate DATE,
+    EndDate DATE,
+    PaymentStatus VARCHAR(20),
+    MemberID INT,
+    FOREIGN KEY (MemberID) REFERENCES MEMBER(MemberID)
+);
+
+-- Create the PAYMENT table
+CREATE TABLE PAYMENT (
+    PaymentID INT AUTO_INCREMENT PRIMARY KEY,
+    Amount DECIMAL(10, 2),
+    PaymentDate DATE,
+    PaymentMethod VARCHAR(50),
+    MemberID INT,
+    FOREIGN KEY (MemberID) REFERENCES MEMBER(MemberID)
+);
+
+-- Create the INSTRUCTOR_ATTENDANCE table
+CREATE TABLE INSTRUCTOR_ATTENDANCE (
+    AttendanceID INT AUTO_INCREMENT PRIMARY KEY,
+    CheckInDateTime DATETIME,
+    CheckOutDateTime DATETIME,
+    HoursWorked DECIMAL(5, 2),
+    InstructorID INT,
+    FOREIGN KEY (InstructorID) REFERENCES INSTRUCTOR(InstructorID)
+);
